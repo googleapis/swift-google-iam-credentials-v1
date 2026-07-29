@@ -50,7 +50,7 @@ public class IAMCredentialsClient: Clients.IAMCredentialsProtocol {
   /// @Snippet(path: "IAMCredentials_GenerateAccessToken")
   public func generateAccessToken(
     request: GenerateAccessTokenRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleIamCredentialsV1.GenerateAccessTokenResponse {
+  ) async throws -> GoogleIAMCredentialsV1.GenerateAccessTokenResponse {
     try await self.inner.generateAccessToken(request: request, options: options)
   }
 
@@ -59,7 +59,7 @@ public class IAMCredentialsClient: Clients.IAMCredentialsProtocol {
   /// @Snippet(path: "IAMCredentials_GenerateIdToken")
   public func generateIdToken(
     request: GenerateIdTokenRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleIamCredentialsV1.GenerateIdTokenResponse {
+  ) async throws -> GoogleIAMCredentialsV1.GenerateIdTokenResponse {
     try await self.inner.generateIdToken(request: request, options: options)
   }
 
@@ -68,7 +68,7 @@ public class IAMCredentialsClient: Clients.IAMCredentialsProtocol {
   /// @Snippet(path: "IAMCredentials_SignBlob")
   public func signBlob(
     request: SignBlobRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleIamCredentialsV1.SignBlobResponse {
+  ) async throws -> GoogleIAMCredentialsV1.SignBlobResponse {
     try await self.inner.signBlob(request: request, options: options)
   }
 
@@ -77,7 +77,7 @@ public class IAMCredentialsClient: Clients.IAMCredentialsProtocol {
   /// @Snippet(path: "IAMCredentials_SignJwt")
   public func signJwt(
     request: SignJwtRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleIamCredentialsV1.SignJwtResponse {
+  ) async throws -> GoogleIAMCredentialsV1.SignJwtResponse {
     try await self.inner.signJwt(request: request, options: options)
   }
 }
@@ -91,7 +91,7 @@ extension Clients {
   public protocol IAMCredentialsProtocol {
     /// See `IAMCredentialsClient.generateAccessToken`.
     func generateAccessToken(request: GenerateAccessTokenRequest) async throws
-      -> GoogleIamCredentialsV1.GenerateAccessTokenResponse
+      -> GoogleIAMCredentialsV1.GenerateAccessTokenResponse
 
     /// See `IAMCredentialsClient.generateAccessToken`.
     func generateAccessToken(
@@ -99,11 +99,11 @@ extension Clients {
       delegates: [Swift.String],
       scope: [Swift.String],
       lifetime: GoogleCloudWkt.Duration?,
-    ) async throws -> GoogleIamCredentialsV1.GenerateAccessTokenResponse
+    ) async throws -> GoogleIAMCredentialsV1.GenerateAccessTokenResponse
 
     /// See `IAMCredentialsClient.generateIdToken`.
     func generateIdToken(request: GenerateIdTokenRequest) async throws
-      -> GoogleIamCredentialsV1.GenerateIdTokenResponse
+      -> GoogleIAMCredentialsV1.GenerateIdTokenResponse
 
     /// See `IAMCredentialsClient.generateIdToken`.
     func generateIdToken(
@@ -111,61 +111,61 @@ extension Clients {
       delegates: [Swift.String],
       audience: Swift.String,
       includeEmail: Swift.Bool,
-    ) async throws -> GoogleIamCredentialsV1.GenerateIdTokenResponse
+    ) async throws -> GoogleIAMCredentialsV1.GenerateIdTokenResponse
 
     /// See `IAMCredentialsClient.signBlob`.
-    func signBlob(request: SignBlobRequest) async throws -> GoogleIamCredentialsV1.SignBlobResponse
+    func signBlob(request: SignBlobRequest) async throws -> GoogleIAMCredentialsV1.SignBlobResponse
 
     /// See `IAMCredentialsClient.signBlob`.
     func signBlob(
       name: Swift.String,
       delegates: [Swift.String],
       payload: Foundation.Data,
-    ) async throws -> GoogleIamCredentialsV1.SignBlobResponse
+    ) async throws -> GoogleIAMCredentialsV1.SignBlobResponse
 
     /// See `IAMCredentialsClient.signJwt`.
-    func signJwt(request: SignJwtRequest) async throws -> GoogleIamCredentialsV1.SignJwtResponse
+    func signJwt(request: SignJwtRequest) async throws -> GoogleIAMCredentialsV1.SignJwtResponse
 
     /// See `IAMCredentialsClient.signJwt`.
     func signJwt(
       name: Swift.String,
       delegates: [Swift.String],
       payload: Swift.String,
-    ) async throws -> GoogleIamCredentialsV1.SignJwtResponse
+    ) async throws -> GoogleIAMCredentialsV1.SignJwtResponse
 
     /// See `IAMCredentialsClient.generateAccessToken`.
     func generateAccessToken(
       request: GenerateAccessTokenRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleIamCredentialsV1.GenerateAccessTokenResponse
+    ) async throws -> GoogleIAMCredentialsV1.GenerateAccessTokenResponse
 
     /// See `IAMCredentialsClient.generateIdToken`.
     func generateIdToken(
       request: GenerateIdTokenRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleIamCredentialsV1.GenerateIdTokenResponse
+    ) async throws -> GoogleIAMCredentialsV1.GenerateIdTokenResponse
 
     /// See `IAMCredentialsClient.signBlob`.
     func signBlob(
       request: SignBlobRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleIamCredentialsV1.SignBlobResponse
+    ) async throws -> GoogleIAMCredentialsV1.SignBlobResponse
 
     /// See `IAMCredentialsClient.signJwt`.
     func signJwt(
       request: SignJwtRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleIamCredentialsV1.SignJwtResponse
+    ) async throws -> GoogleIAMCredentialsV1.SignJwtResponse
   }
 }
 
 // Default implementations
 extension Clients.IAMCredentialsProtocol {
   public func generateAccessToken(request: GenerateAccessTokenRequest) async throws
-    -> GoogleIamCredentialsV1.GenerateAccessTokenResponse
+    -> GoogleIAMCredentialsV1.GenerateAccessTokenResponse
   {
     try await self.generateAccessToken(request: request, options: .init())
   }
 
   public func generateAccessToken(
     request: GenerateAccessTokenRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleIamCredentialsV1.GenerateAccessTokenResponse {
+  ) async throws -> GoogleIAMCredentialsV1.GenerateAccessTokenResponse {
     throw GoogleCloudGax.RequestError.unimplemented
   }
 
@@ -174,7 +174,7 @@ extension Clients.IAMCredentialsProtocol {
     delegates: [Swift.String],
     scope: [Swift.String],
     lifetime: GoogleCloudWkt.Duration?,
-  ) async throws -> GoogleIamCredentialsV1.GenerateAccessTokenResponse {
+  ) async throws -> GoogleIAMCredentialsV1.GenerateAccessTokenResponse {
     let request = GenerateAccessTokenRequest().with {
       $0.name = name
       $0.delegates = delegates
@@ -185,14 +185,14 @@ extension Clients.IAMCredentialsProtocol {
   }
 
   public func generateIdToken(request: GenerateIdTokenRequest) async throws
-    -> GoogleIamCredentialsV1.GenerateIdTokenResponse
+    -> GoogleIAMCredentialsV1.GenerateIdTokenResponse
   {
     try await self.generateIdToken(request: request, options: .init())
   }
 
   public func generateIdToken(
     request: GenerateIdTokenRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleIamCredentialsV1.GenerateIdTokenResponse {
+  ) async throws -> GoogleIAMCredentialsV1.GenerateIdTokenResponse {
     throw GoogleCloudGax.RequestError.unimplemented
   }
 
@@ -201,7 +201,7 @@ extension Clients.IAMCredentialsProtocol {
     delegates: [Swift.String],
     audience: Swift.String,
     includeEmail: Swift.Bool,
-  ) async throws -> GoogleIamCredentialsV1.GenerateIdTokenResponse {
+  ) async throws -> GoogleIAMCredentialsV1.GenerateIdTokenResponse {
     let request = GenerateIdTokenRequest().with {
       $0.name = name
       $0.delegates = delegates
@@ -212,14 +212,14 @@ extension Clients.IAMCredentialsProtocol {
   }
 
   public func signBlob(request: SignBlobRequest) async throws
-    -> GoogleIamCredentialsV1.SignBlobResponse
+    -> GoogleIAMCredentialsV1.SignBlobResponse
   {
     try await self.signBlob(request: request, options: .init())
   }
 
   public func signBlob(
     request: SignBlobRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleIamCredentialsV1.SignBlobResponse {
+  ) async throws -> GoogleIAMCredentialsV1.SignBlobResponse {
     throw GoogleCloudGax.RequestError.unimplemented
   }
 
@@ -227,7 +227,7 @@ extension Clients.IAMCredentialsProtocol {
     name: Swift.String,
     delegates: [Swift.String],
     payload: Foundation.Data,
-  ) async throws -> GoogleIamCredentialsV1.SignBlobResponse {
+  ) async throws -> GoogleIAMCredentialsV1.SignBlobResponse {
     let request = SignBlobRequest().with {
       $0.name = name
       $0.delegates = delegates
@@ -237,14 +237,14 @@ extension Clients.IAMCredentialsProtocol {
   }
 
   public func signJwt(request: SignJwtRequest) async throws
-    -> GoogleIamCredentialsV1.SignJwtResponse
+    -> GoogleIAMCredentialsV1.SignJwtResponse
   {
     try await self.signJwt(request: request, options: .init())
   }
 
   public func signJwt(
     request: SignJwtRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleIamCredentialsV1.SignJwtResponse {
+  ) async throws -> GoogleIAMCredentialsV1.SignJwtResponse {
     throw GoogleCloudGax.RequestError.unimplemented
   }
 
@@ -252,7 +252,7 @@ extension Clients.IAMCredentialsProtocol {
     name: Swift.String,
     delegates: [Swift.String],
     payload: Swift.String,
-  ) async throws -> GoogleIamCredentialsV1.SignJwtResponse {
+  ) async throws -> GoogleIAMCredentialsV1.SignJwtResponse {
     let request = SignJwtRequest().with {
       $0.name = name
       $0.delegates = delegates

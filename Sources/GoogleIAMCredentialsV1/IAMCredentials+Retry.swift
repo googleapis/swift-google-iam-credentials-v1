@@ -20,52 +20,44 @@ import Foundation
 #endif
 import GoogleCloudWkt
 import GoogleCloudGax
-import struct Logging.Logger
 
 extension Clients {
-  final class IAMCredentialsLogging: IAMCredentialsStub {
+  final class IAMCredentialsRetry: IAMCredentialsStub {
     let inner: any IAMCredentialsStub
-    let logger: Logger
+    let options: GoogleCloudGax.ClientOptions
 
-    public init(_ inner: any IAMCredentialsStub, logger: Logger) {
-      var logger = logger
-      logger[metadataKey: "gcp.artifact.id"] = "google-iam-credentials-v1"
-      logger[metadataKey: "gcp.client.service"] = "iamcredentials"
-      logger[metadataKey: "gcp.experimental.swift.client"] = "IAMCredentials"
+    public init(_ inner: any IAMCredentialsStub, options: GoogleCloudGax.ClientOptions) {
       self.inner = inner
-      self.logger = logger
+      self.options = options
     }
 
     func _intercept<Input, Output>(
       request: Input,
       options: GoogleCloudGax.RequestOptions,
-      name: Swift.String,
+      idempotent: Swift.Bool,
       action: (Input, GoogleCloudGax.RequestOptions) async throws -> Output,
     ) async throws -> Output {
-      var logger = logger
-      logger[metadataKey: "gcp.experimental.swift.request.id"] = "\(UUID())"
-      logger[metadataKey: "gcp.experimental.swift.method"] = .string(name)
-      logger.debug("enter  : \(request) \(options)")
-      do {
-        let output = try await action(request, options)
-        logger.debug("success: \(request) \(options) \(output)")
-        return output
-      } catch let error {
-        logger.debug("error  : \(request) \(options) \(error)")
-        throw error
+      let loop = GoogleCloudGax._RetryLoop(
+        options: options, withDefault: self.options, idempotent: idempotent,
+      )
+      let attempt = { (attemptTimeout: Swift.Duration?) async throws -> Output in
+        var attemptOptions = options
+        attemptOptions.attemptTimeout = attemptTimeout
+        return try await action(request, attemptOptions)
       }
+      return try await loop.run(attempt: attempt)
     }
 
     public func generateAccessToken(
       request: GenerateAccessTokenRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleIamCredentialsV1.GenerateAccessTokenResponse {
+    ) async throws -> GoogleIAMCredentialsV1.GenerateAccessTokenResponse {
       try await self._intercept(
         request: request,
         options: options,
-        name: "generateAccessToken",
+        idempotent: false,
         action: {
           (r: GenerateAccessTokenRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleIamCredentialsV1.GenerateAccessTokenResponse
+            -> GoogleIAMCredentialsV1.GenerateAccessTokenResponse
           in
           return try await self.inner.generateAccessToken(request: r, options: o)
         })
@@ -73,14 +65,14 @@ extension Clients {
 
     public func generateIdToken(
       request: GenerateIdTokenRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleIamCredentialsV1.GenerateIdTokenResponse {
+    ) async throws -> GoogleIAMCredentialsV1.GenerateIdTokenResponse {
       try await self._intercept(
         request: request,
         options: options,
-        name: "generateIdToken",
+        idempotent: false,
         action: {
           (r: GenerateIdTokenRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleIamCredentialsV1.GenerateIdTokenResponse
+            -> GoogleIAMCredentialsV1.GenerateIdTokenResponse
           in
           return try await self.inner.generateIdToken(request: r, options: o)
         })
@@ -88,14 +80,14 @@ extension Clients {
 
     public func signBlob(
       request: SignBlobRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleIamCredentialsV1.SignBlobResponse {
+    ) async throws -> GoogleIAMCredentialsV1.SignBlobResponse {
       try await self._intercept(
         request: request,
         options: options,
-        name: "signBlob",
+        idempotent: false,
         action: {
           (r: SignBlobRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleIamCredentialsV1.SignBlobResponse
+            -> GoogleIAMCredentialsV1.SignBlobResponse
           in
           return try await self.inner.signBlob(request: r, options: o)
         })
@@ -103,14 +95,14 @@ extension Clients {
 
     public func signJwt(
       request: SignJwtRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleIamCredentialsV1.SignJwtResponse {
+    ) async throws -> GoogleIAMCredentialsV1.SignJwtResponse {
       try await self._intercept(
         request: request,
         options: options,
-        name: "signJwt",
+        idempotent: false,
         action: {
           (r: SignJwtRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleIamCredentialsV1.SignJwtResponse
+            -> GoogleIAMCredentialsV1.SignJwtResponse
           in
           return try await self.inner.signJwt(request: r, options: o)
         })

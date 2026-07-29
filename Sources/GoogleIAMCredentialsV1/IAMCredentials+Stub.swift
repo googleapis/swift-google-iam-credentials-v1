@@ -25,19 +25,19 @@ extension Clients {
   protocol IAMCredentialsStub {
     func generateAccessToken(
       request: GenerateAccessTokenRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleIamCredentialsV1.GenerateAccessTokenResponse
+    ) async throws -> GoogleIAMCredentialsV1.GenerateAccessTokenResponse
 
     func generateIdToken(
       request: GenerateIdTokenRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleIamCredentialsV1.GenerateIdTokenResponse
+    ) async throws -> GoogleIAMCredentialsV1.GenerateIdTokenResponse
 
     func signBlob(
       request: SignBlobRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleIamCredentialsV1.SignBlobResponse
+    ) async throws -> GoogleIAMCredentialsV1.SignBlobResponse
 
     func signJwt(
       request: SignJwtRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleIamCredentialsV1.SignJwtResponse
+    ) async throws -> GoogleIAMCredentialsV1.SignJwtResponse
   }
 
   class IAMCredentialsTransport: IAMCredentialsStub {
@@ -50,7 +50,7 @@ extension Clients {
 
     public func generateAccessToken(
       request: GenerateAccessTokenRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleIamCredentialsV1.GenerateAccessTokenResponse {
+    ) async throws -> GoogleIAMCredentialsV1.GenerateAccessTokenResponse {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.name' is not set or is empty")
@@ -67,12 +67,12 @@ extension Clients {
       req.httpBody = try JSONEncoder().encode(request)
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleIamCredentialsV1.GenerateAccessTokenResponse.self, from: data)
+        GoogleIAMCredentialsV1.GenerateAccessTokenResponse.self, from: data)
     }
 
     public func generateIdToken(
       request: GenerateIdTokenRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleIamCredentialsV1.GenerateIdTokenResponse {
+    ) async throws -> GoogleIAMCredentialsV1.GenerateIdTokenResponse {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.name' is not set or is empty")
@@ -89,12 +89,12 @@ extension Clients {
       req.httpBody = try JSONEncoder().encode(request)
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleIamCredentialsV1.GenerateIdTokenResponse.self, from: data)
+        GoogleIAMCredentialsV1.GenerateIdTokenResponse.self, from: data)
     }
 
     public func signBlob(
       request: SignBlobRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleIamCredentialsV1.SignBlobResponse {
+    ) async throws -> GoogleIAMCredentialsV1.SignBlobResponse {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.name' is not set or is empty")
@@ -111,12 +111,12 @@ extension Clients {
       req.httpBody = try JSONEncoder().encode(request)
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleIamCredentialsV1.SignBlobResponse.self, from: data)
+        GoogleIAMCredentialsV1.SignBlobResponse.self, from: data)
     }
 
     public func signJwt(
       request: SignJwtRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleIamCredentialsV1.SignJwtResponse {
+    ) async throws -> GoogleIAMCredentialsV1.SignJwtResponse {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.name' is not set or is empty")
@@ -133,7 +133,7 @@ extension Clients {
       req.httpBody = try JSONEncoder().encode(request)
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleIamCredentialsV1.SignJwtResponse.self, from: data)
+        GoogleIAMCredentialsV1.SignJwtResponse.self, from: data)
     }
   }
 }
